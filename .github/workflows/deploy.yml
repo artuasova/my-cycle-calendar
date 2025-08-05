@@ -29,17 +29,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # Это важно: указываем, что хотим кэшировать зависимости npm
           cache: 'npm'
       - name: Install dependencies
-        # Используем npm ci для установки зависимостей из package-lock.json
-        # Если его нет, npm install создаст его
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        # Используем npm ci, который работает с package-lock.json
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Upload artifact
